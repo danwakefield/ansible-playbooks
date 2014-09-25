@@ -1,0 +1,4 @@
+
+[submodule "setup_new_machine/roles/ansible_deb_bootstrap"]
+    path = setup_new_machine/roles/ansible_deb_bootstrap
+	url = https://github.com/cederberg/ansible-bootstrap-debian.git
