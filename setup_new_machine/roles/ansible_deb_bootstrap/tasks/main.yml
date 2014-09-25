@@ -1,0 +1,14 @@
+#
+# Installs packages required for Ansible on Debian/Ubuntu hosts.
+#
+
+- name: Install minimal requirements for Ansible (on Debian/Ubuntu)
+  script: install_missing_package.sh {{item}}
+  register: res
+  sudo: yes
+  changed_when: "res.stdout.startswith('Install')"
+  with_items:
+     - python
+     - python-apt
+     - python-pycurl
+     - aptitude
