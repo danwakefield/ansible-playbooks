@@ -1,0 +1,27 @@
+---
+
+- name: Create non-root admin user
+  hosts: all
+  gather_facts: no
+  remote_user: root
+  roles: 
+    - create_user
+    - passwordless_sudo
+  tags:
+    - initial_root_config
+
+- name: SSH hardening and keyfile setup
+  hosts: all
+  gather_facts: no
+  remote_user: root
+  roles:
+    - ssh
+  tags:
+    - initial_root_config
+
+- name: Bootstrap deb based system for ansible use
+  hosts: all
+  remote_user: "{{ new_user }}"
+  roles:
+    - ansible_deb_bootstrap
+

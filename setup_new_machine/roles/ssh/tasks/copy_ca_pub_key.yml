@@ -1,0 +1,9 @@
+---
+
+- name: Copy CA SSH key to server.
+  copy: src=ca.pub 
+        dest=/etc/ssh/ 
+        group=root 
+        owner=root 
+        mode=644
+

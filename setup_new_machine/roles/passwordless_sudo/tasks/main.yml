@@ -1,0 +1,5 @@
+---
+
+- name: Set sudo group to have passwordless sudo access
+  lineinfile: "dest=/etc/sudoers state=present regexp='^%sudo' line='%sudo ALL=(ALL) NOPASSWD: ALL'"
+

@@ -1,0 +1,4 @@
+---
+
+- include: copy_ca_pub_key.yml
+- include: harden.yml
