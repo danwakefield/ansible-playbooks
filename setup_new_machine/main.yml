@@ -7,8 +7,12 @@
   roles: 
     - create_user
     - passwordless_sudo
-  tags:
-    - initial_root_config
+
+- name: Bootstrap deb based system for further ansible use
+  hosts: all
+  remote_user: root
+  roles:
+    - ansible_deb_bootstrap
 
 - name: SSH hardening and keyfile setup
   hosts: all
@@ -16,12 +20,5 @@
   remote_user: root
   roles:
     - ssh
-  tags:
-    - initial_root_config
 
-- name: Bootstrap deb based system for ansible use
-  hosts: all
-  remote_user: "{{ new_user }}"
-  roles:
-    - ansible_deb_bootstrap
 
