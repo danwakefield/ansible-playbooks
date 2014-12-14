@@ -1,0 +1,8 @@
+---
+
+- name: Install the client
+  sudo: yes
+  apt: name=transmission-daemon
+       state=present
+       update_cache=yes
+       cache_valid_time=36000

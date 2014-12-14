@@ -1,0 +1,5 @@
+---
+
+- include: user_group_add.yml
+- include: config_file.yml
+- include: home_symlink.yml

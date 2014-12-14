@@ -1,0 +1,18 @@
+---
+
+- name: Stop transmission-daemon. Changes made to the configuration file are overwritten otherwise.
+  service: name=transmission-daemon state=stopped
+  notify:
+    - start transmission
+
+
+- name: Create the config file using the template and group_vars
+  sudo: yes
+  template: src=settings.j2
+            dest=/var/lib/transmission-daemon/info/settings.json
+            owner=debian-transmission
+            group=debian-transmission
+            mode=0644
+  notify:
+    - start transmission
+

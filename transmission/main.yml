@@ -1,0 +1,12 @@
+---
+
+- name: Install Transmission Daemon
+  gather_facts: no
+  hosts: all
+  roles:
+    - install
+
+- name: Configure with some basic settings.
+  hosts: all
+  roles:
+    - configure
