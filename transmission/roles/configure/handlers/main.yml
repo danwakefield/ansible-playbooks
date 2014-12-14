@@ -1,0 +1,5 @@
+---
+
+- name: start transmission
+  sudo: yes
+  service: name=transmission-daemon state=started
