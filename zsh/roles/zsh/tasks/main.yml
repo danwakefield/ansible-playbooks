@@ -1,0 +1,48 @@
+---
+
+- name: Install git + zsh
+  sudo: yes
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+    - git
+    - zsh
+    - git-core
+
+- name: Clone ohmyzsh
+  git:
+    repo: "https://github.com/robbyrussell/oh-my-zsh.git"
+    dest: "/home/{{ zsh_user }}/.config/ohmyzsh"
+
+- name: Clone personal dotfiles repo.
+  git:
+    repo: "https://github.com/danwakefield/dotfiles.git"
+    dest: "/home/{{ zsh_user }}/dotfiles"
+
+- name: Remove ZSH/custom folder
+  file:
+    path: "/home/{{ zsh_user }}/.config/ohmyzsh/custom"
+    state: absent
+    force: yes
+
+- name: Replace custom folder with our our
+  file:
+    src: "/home/{{ zsh_user }}/dotfiles/zshrc"
+    dest: "/home/{{ zsh_user }}/.config/ohmyzsh/custom"
+    state: link
+
+- name: Link our zshrc to the right place
+  file:
+    src: "/home/admx/dotfiles/zshrc/zshrc"
+    dest: "/home/{{ zsh_user }}/.zshrc"
+    state: link
+
+- name: Set ZSH as our shell
+  sudo: yes
+  user:
+    name: "{{ zsh_user }}"
+    shell: "/bin/zsh"
+
+

@@ -1,6 +1,12 @@
 ---
 
 - name: Create user and ensure it belogs to correct groups
-  user: name={{ new_user }} state=present append=yes groups=sudo password={{ new_user_pass }}
+  user:
+    name: "{{ new_user }}"
+    password: "{{ new_user_pass }}"
+    state: present
+    groups: sudo
+    append: yes
+    shell: "/bin/bash"
 
 
