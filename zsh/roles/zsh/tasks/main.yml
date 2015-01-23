@@ -38,6 +38,7 @@
     src: "/home/admx/dotfiles/zshrc/zshrc"
     dest: "/home/{{ zsh_user }}/.zshrc"
     state: link
+    force: yes
 
 - name: Set ZSH as our shell
   sudo: yes
