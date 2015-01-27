@@ -1,0 +1,11 @@
+---
+
+- name: stop ntp
+  service:
+    name: ntp
+    state: stopped
+
+- name: start ntp
+  service:
+    name: ntp
+    state: started

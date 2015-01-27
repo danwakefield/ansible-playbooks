@@ -2,4 +2,7 @@
 
 - name: Add user to debian-transmission group so no need to mess with permission masks
   sudo: yes
-  user: append=yes groups=debian-transmission name={{ ansible_env.USER }}
+  user:
+    append: yes
+    groups: debian-transmission
+    name: "{{ ansible_env.USER }}"
