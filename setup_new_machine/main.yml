@@ -23,6 +23,13 @@
   tags:
     - ntp
 
+- name: Autoban probe attempts
+  hosts: all
+  roles:
+    - ratelimit
+  tags:
+    - ratelimit
+
 - name: SSH hardening and keyfile setup
   hosts: all
   gather_facts: no
