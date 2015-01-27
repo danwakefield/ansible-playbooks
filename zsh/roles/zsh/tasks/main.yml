@@ -35,7 +35,7 @@
 
 - name: Link our zshrc to the right place
   file:
-    src: "/home/admx/dotfiles/zshrc/zshrc"
+    src: "/home/{{ zsh_user }}/dotfiles/zshrc/zshrc"
     dest: "/home/{{ zsh_user }}/.zshrc"
     state: link
     force: yes
