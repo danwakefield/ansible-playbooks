@@ -10,6 +10,14 @@
   notify:
     - stop ntp
 
+- name: Install NTPdate
+  sudo: yes
+  apt:
+    name: ntpdate
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
+
 - name: set Timezone to UTC.
   sudo: yes
   file:
