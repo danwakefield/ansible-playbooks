@@ -1,6 +1,7 @@
 ---
 
 - name: Set sudo group to have passwordless sudo access
+  sudo: yes
   lineinfile:
     dest: /etc/sudoers
     state: present

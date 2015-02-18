@@ -7,6 +7,11 @@
     state: present
     update_cache: yes
     cache_valid_time: 3600
+  apt:
+    name: ntpdate
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
   notify:
     - stop ntp
 
@@ -27,6 +32,7 @@
     state: link
 
 - name: Set NTP servers.
+  sudo: yes
   command: "ntpdate -q pool.ntp.org"
   notify:
     - start ntp

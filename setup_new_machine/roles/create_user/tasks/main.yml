@@ -1,6 +1,7 @@
 ---
 
 - name: Create user and ensure it belogs to correct groups
+  sudo: yes
   user:
     name: "{{ new_user }}"
     password: "{{ new_user_pass }}"
