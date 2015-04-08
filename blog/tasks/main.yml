@@ -1,0 +1,5 @@
+---
+# tasks file for blog
+
+- include: webserver.yml tags=web,install
+- include: sites.yml tags=web,config
