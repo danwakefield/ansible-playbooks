@@ -1,0 +1,63 @@
+---
+# vim:ft=ansible:
+
+- name: Ensure apache is not installed.
+  apt:
+    name: apache2
+    state: absent
+  notify: stop apache
+
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+  notfiy: start nginx
+
+- name: Create root dir for nginx.
+  file:
+    name: "{{ nginx_root_dir }}"
+    state: present
+    owner: www-data
+    group: www-data
+    mode: 774
+
+- name: Create dir for default site.
+  file:
+    name: "{{ nginx_root_dir }}/default/"
+    state: present
+    owner: www-data
+    group: www-data
+    mode: 774
+
+- name: Copy default index.html
+  copy:
+    src: index.html
+    dest: "{{ nginx_root_dir }}/default/index.html"
+    owner: www-data
+    group: www-data
+    mode: 774
+
+- name: Copy default nginx site conf
+  template:
+    src: default.nginx.j2
+    dest: /etc/nginx/site-available/
+    owner: www-data
+    group: www-data
+    mode: 774
+
+# Try both SUDO_USER and USER. We cant be sure if role
+# will be run with sudo:yes but most likely will.
+- name: Add SUDO_USER to www-data group
+  user:
+    name: "{{ ansible.ansible_env.SUDO_USER }}"
+    append: yes
+    groups: www-data
+  register: group_success
+  ignore_errors: True
+
+- name: Add USER to www-data group
+  user:
+    name: "{{ ansible.ansible_env.USER }}"
+    append: yes
+    groups: www-data
+  when: group_success|failed

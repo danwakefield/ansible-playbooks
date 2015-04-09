@@ -1,0 +1,29 @@
+---
+# vim:ft=ansible:
+
+- name: Ensure apache is not on server.
+  apt:
+    name: apache2
+    state: absent
+  notify: stop apache
+
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: present
+  notfiy: start nginx
+
+- name: Install danw.eu nginx conf
+  copy:
+    src: danw.eu.nginx
+    dest: /etc/nginx/sites-available/danw.eu.nginx
+    owner: root
+    group: root
+    mode: u+rw,g+r,o+r
+  file:
+    src: /etc/nginx/sites-available/danw.eu.nginx
+    dest: /etc/nginx/sites-enabled/danw.eu
+    state: link
+  file:
+    name: /etc/nginx/sites-enabled/default
+    state: absent

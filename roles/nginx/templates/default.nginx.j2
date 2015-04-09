@@ -1,0 +1,8 @@
+server {
+  listen 80;
+  root /srv/www/default/;
+
+  location / {
+    try_files $uri $uri/ $uri/index.html $uri.html index.html =404;
+  }
+}
