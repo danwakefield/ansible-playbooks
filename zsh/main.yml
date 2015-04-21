@@ -1,8 +1,0 @@
----
-
-- name: Install and configure zsh
-  hosts: all
-  vars:
-    zsh_user: "admx"
-  roles:
-    - zsh
