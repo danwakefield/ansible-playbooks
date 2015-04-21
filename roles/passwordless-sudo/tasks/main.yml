@@ -1,0 +1,28 @@
+---
+
+- name: Ensure sudo exists
+  sudo: yes
+  apt:
+    name: sudo
+    state: latest
+    update_cache: yes
+
+
+- name: Set sudo group to have passwordless sudo access
+  sudo: yes
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: '^%sudo'
+    line: '%sudo ALL=(ALL) NOPASSWD: ALL'
+    validate: 'visudo -cf %s'
+
+- name: Disable requiretty if it is enabled so we can use Pipelining
+  sudo: yes
+  lineinfile:
+    dest: /etc/sudoers
+    state: absent
+    regexp: '^Defaults.*requiretty'
+    validate: 'visudo -cf %s'
+
+

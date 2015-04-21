@@ -1,0 +1,33 @@
+---
+
+- name: Setup new machine
+  hosts: all
+  roles:
+    - {
+        role: create-sudo-user,
+        tags: user
+    }
+    - {
+        role: ansible-deb-bootstrap,
+        tags: bootstrap
+    }
+    - {
+        role: passwordless-sudo,
+        tags: ['user', 'sudo']
+    }
+    - {
+        role: ntp,
+        tags: ['ntp', 'install']
+    }
+    - {
+        role: fail2ban,
+        tags: ['fail2ban', 'install']
+    }
+    - {
+        role: zsh,
+        tags: ['zsh', 'install']
+    }
+    - {
+        role: ssh-with-ca,
+        tags: ssh
+    }

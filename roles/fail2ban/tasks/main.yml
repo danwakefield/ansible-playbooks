@@ -4,8 +4,3 @@
   apt:
     name: fail2ban
     state: present
-
-- name: Install denyhosts
-  apt:
-    name: denyhosts
-    state: present

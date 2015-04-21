@@ -11,7 +11,7 @@
   apt:
     name: nginx
     state: present
-  notfiy: start nginx
+  notfiy: restart nginx
 
 - name: Create root dir for nginx.
   file:
@@ -52,7 +52,7 @@
     name: "{{ ansible.ansible_env.SUDO_USER }}"
     append: yes
     groups: www-data
-  register: group_success
+  register: add_group
   ignore_errors: True
 
 - name: Add USER to www-data group
@@ -60,4 +60,4 @@
     name: "{{ ansible.ansible_env.USER }}"
     append: yes
     groups: www-data
-  when: group_success|failed
+  when: add_group|failed

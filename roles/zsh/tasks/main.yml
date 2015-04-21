@@ -3,9 +3,11 @@
 - name: Install zsh
   sudo: yes
   apt:
-    name: "zsh"
+    name: "{{ item }}"
     state: latest
     update_cache: yes
+  with_items:
+    - zsh
 
 - name: Remove ZSH/custom folder
   file:
