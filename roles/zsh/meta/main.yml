@@ -1,7 +1,4 @@
 ---
 
 dependencies:
-  - {
-      role: git,
-      vars:
-  }
+  - role: git
