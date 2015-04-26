@@ -40,7 +40,7 @@
 - name: Copy default nginx site conf
   template:
     src: default.nginx.j2
-    dest: /etc/nginx/site-available/
+    dest: /etc/nginx/sites-available/
     owner: www-data
     group: www-data
     mode: 774
