@@ -37,13 +37,27 @@
     group: www-data
     mode: 774
 
+- name: Remove default default conf files.
+  file:
+    name: /etc/nginx/sites-available/default
+    state: absent
+  file:
+    name: /etc/nginx/sites-enabled/default
+    state: absent
+
 - name: Copy default nginx site conf
   template:
     src: default.nginx.j2
-    dest: /etc/nginx/sites-available/
+    dest: /etc/nginx/sites-available/default.nginx.conf
     owner: www-data
     group: www-data
     mode: 774
+
+- name: Link default conf to enabled sites
+  file:
+    src: /etc/nginx/sites-available/default.nginx.conf
+    dest: /etc/nginx/sites-enabled/default.nginx.conf
+    state: link
 
 # Try both SUDO_USER and USER. We cant be sure if role
 # will be run with sudo:yes but most likely will.
