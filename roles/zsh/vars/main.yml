@@ -1,6 +1,6 @@
 ---
 
-zsh_user: "{{ new_user | default("admx") }}"
+zsh_user: "{{ new_user | default('admx') }}"
 git_clone_targets:
   - repo: "https://github.com/robbyrussell/oh-my-zsh.git"
     dest: "/home/{{ zsh_user }}/.config/ohmyzsh"
