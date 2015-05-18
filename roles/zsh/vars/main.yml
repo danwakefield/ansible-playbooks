@@ -1,8 +1,7 @@
 ---
 
 zsh_user: "{{ new_user | default('admx') }}"
+dotfiles_path: "/home/{{ zsh_user }}/dotfiles"
 git_clone_targets:
-  - repo: "https://github.com/robbyrussell/oh-my-zsh.git"
-    dest: "/home/{{ zsh_user }}/.config/ohmyzsh"
   - repo: "https://github.com/danwakefield/dotfiles.git"
-    dest: "/home/{{ zsh_user }}/dotfiles"
+    dest: "{{ dotfiles_path }}"

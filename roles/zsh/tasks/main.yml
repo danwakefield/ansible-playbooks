@@ -9,24 +9,26 @@
   with_items:
     - zsh
 
-- name: Remove ZSH/custom folder
+- name: Chown dotfiles.
+  sudo: yes
   file:
-    path: "/home/{{ zsh_user }}/.config/ohmyzsh/custom"
-    state: absent
-    force: yes
+    owner: "{{ zsh_user }}"
+    group: "{{ zsh_user }}"
+    path: "{{ dotfiles_path }}"
+    recurse: yes
 
-- name: Replace custom folder with our our
-  file:
-    src: "/home/{{ zsh_user }}/dotfiles/zshrc"
-    dest: "/home/{{ zsh_user }}/.config/ohmyzsh/custom"
-    state: link
+- name: Install Stow
+  sudo: yes
+  apt:
+    name: stow
+    state: present
+    update_cache: yes
+    cache_valid_time: 3600
 
-- name: Link our zshrc to the right place
-  file:
-    src: "/home/{{ zsh_user }}/dotfiles/zshrc/zshrc"
-    dest: "/home/{{ zsh_user }}/.zshrc"
-    state: link
-    force: yes
+- name: Unstow dotfiles
+  command: "{{ dotfiles_path }}/init.nostow/init.sh"
+  args:
+    chdir: "{{ dotfiles_path }}/init.nostow/"
 
 - name: Set ZSH as our shell
   sudo: yes
