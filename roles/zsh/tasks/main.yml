@@ -26,6 +26,7 @@
     cache_valid_time: 3600
 
 - name: Unstow dotfiles
+  user: "{{ zsh_user }}"
   command: "{{ dotfiles_path }}/init.nostow/init.sh"
   args:
     chdir: "{{ dotfiles_path }}/init.nostow/"
