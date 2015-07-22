@@ -1,6 +1,7 @@
 ---
 
 - name: Copy CA SSH key to server.
+  sudo: yes
   copy:
     src: ca.pub
     dest: /etc/ssh
@@ -9,6 +10,7 @@
     mode: 644
 
 - name: Harden /etc/ssh/sshd_config
+  sudo: yes
   template:
     src: sshd_config_template.j2
     dest: /etc/ssh/sshd_config
