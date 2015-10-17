@@ -2,42 +2,48 @@
 # vim:ft=ansible:
 
 - name: Ensure apache is not installed.
+  sudo: yes
   apt:
     name: apache2
     state: absent
   notify: stop apache
 
 - name: Install Nginx
+  sudo: yes
   apt:
     name: nginx
     state: present
-  notfiy: restart nginx
+  notify: restart nginx
 
 - name: Create root dir for nginx.
+  sudo: yes
   file:
     name: "{{ nginx_root_dir }}"
-    state: present
+    state: directory
     owner: www-data
     group: www-data
-    mode: 774
+    mode: 0774
 
 - name: Create dir for default site.
+  sudo: yes
   file:
     name: "{{ nginx_root_dir }}/default/"
-    state: present
+    state: directory
     owner: www-data
     group: www-data
-    mode: 774
+    mode: 0774
 
 - name: Copy default index.html
+  sudo: yes
   copy:
     src: index.html
     dest: "{{ nginx_root_dir }}/default/index.html"
     owner: www-data
     group: www-data
-    mode: 774
+    mode: 0774
 
 - name: Remove default default conf files.
+  sudo: yes
   file:
     name: /etc/nginx/sites-available/default
     state: absent
@@ -46,14 +52,16 @@
     state: absent
 
 - name: Copy default nginx site conf
+  sudo: yes
   template:
     src: default.nginx.j2
     dest: /etc/nginx/sites-available/default.nginx.conf
     owner: www-data
     group: www-data
-    mode: 774
+    mode: 0774
 
 - name: Link default conf to enabled sites
+  sudo: yes
   file:
     src: /etc/nginx/sites-available/default.nginx.conf
     dest: /etc/nginx/sites-enabled/default.nginx.conf
@@ -62,16 +70,18 @@
 # Try both SUDO_USER and USER. We cant be sure if role
 # will be run with sudo:yes but most likely will.
 - name: Add SUDO_USER to www-data group
+  sudo: yes
   user:
-    name: "{{ ansible.ansible_env.SUDO_USER }}"
+    name: "{{ ansible_env.SUDO_USER | default('===DOES+NOT+EXIST===') }}"
     append: yes
     groups: www-data
   register: add_group
   ignore_errors: True
 
 - name: Add USER to www-data group
+  sudo: yes
   user:
-    name: "{{ ansible.ansible_env.USER }}"
+    name: "{{ ansible_env.USER }}"
     append: yes
     groups: www-data
   when: add_group|failed

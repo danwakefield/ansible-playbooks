@@ -1,2 +1,13 @@
 ---
 # handlers file for blog
+
+- name: stop apache
+  service:
+    name: apache2
+    state: stopped
+
+- name: restart nginx
+  service:
+    name: nginx
+    state: restarted
+

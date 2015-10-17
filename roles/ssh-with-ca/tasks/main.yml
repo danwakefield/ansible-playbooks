@@ -7,7 +7,7 @@
     dest: /etc/ssh
     group: root
     owner:  root
-    mode: 644
+    mode: 0644
 
 - name: Harden /etc/ssh/sshd_config
   sudo: yes
