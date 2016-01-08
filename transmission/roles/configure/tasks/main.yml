@@ -1,5 +1,33 @@
 ---
 
-- include: user_group_add.yml
-- include: config_file.yml
-- include: home_symlink.yml
+- name: Add user to debian-transmission group so no need to mess with permission masks
+  sudo: yes
+  user:
+    append: yes
+    groups: debian-transmission
+    name: "{{ ansible_env.USER }}"
+
+- name: Stop transmission-daemon. Changes made to the configuration file are overwritten otherwise.
+  service:
+    name: transmission-daemon
+    state: stopped
+  notify:
+    - start transmission
+
+- name: Create the config file using the template and group_vars
+  sudo: yes
+  template:
+    src: settings.j2
+    dest: /var/lib/transmission-daemon/info/settings.json
+    owner: debian-transmission
+    group: debian-transmission
+    mode: 0644
+  notify:
+    - start transmission
+
+- name: Symlink the default download folder to ~/torrents
+  sudo: yes
+  file:
+    src: /var/lib/transmission-daemon/downloads
+    dest: "{{ ansible_env.HOME }}/torrents"
+    state: link

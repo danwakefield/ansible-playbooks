@@ -4,12 +4,12 @@
   hosts: all
   roles:
     - {
-        role: create-sudo-user,
-        tags: user
-    }
-    - {
         role: ansible-deb-bootstrap,
         tags: bootstrap
+    }
+    - {
+        role: create-sudo-user,
+        tags: user
     }
     - {
         role: passwordless-sudo,

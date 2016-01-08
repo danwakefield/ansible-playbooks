@@ -1,9 +1,0 @@
----
-
-- name: Symlink the default download folder to ~/torrents
-  sudo: yes
-  file:
-    src: /var/lib/transmission-daemon/downloads
-    dest: "{{ ansible_env.HOME }}/torrents"
-    state: link
-
