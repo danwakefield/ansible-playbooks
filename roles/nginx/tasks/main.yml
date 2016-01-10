@@ -42,8 +42,7 @@
     group: www-data
     mode: 0774
 
-- name: Remove default default conf files.
-  sudo: yes
+- name: Remove default conf files.
   file:
     name: /etc/nginx/sites-available/default
     state: absent
