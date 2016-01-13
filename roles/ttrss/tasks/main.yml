@@ -44,3 +44,9 @@
     - php5-fpm
     - php5-curl
 
+- name: Add reboot cron task
+  cron:
+    user: admx
+    name: ttrss reboot
+    special_time: reboot
+    job: "php /srv/www/rss/update_daemon2.php &"

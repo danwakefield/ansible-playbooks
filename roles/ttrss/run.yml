@@ -1,0 +1,7 @@
+---
+
+- name: TTRSS
+  hosts: all
+  sudo: yes
+  roles:
+  - role: ttrss
