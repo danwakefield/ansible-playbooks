@@ -8,6 +8,9 @@
     owner: root
     group: www-data
     mode: 0774
+
+- name: Link Conf files
+  sudo: yes
   file:
     src: /etc/nginx/sites-available/ttrss.nginx.conf
     dest: /etc/nginx/sites-enabled/ttrss.nginx.conf
@@ -33,7 +36,7 @@
   apt:
     update_cache: yes
     state: present
-    name: {{ item }}
+    name: "{{ item }}"
   with_items:
     - php5
     - php5-common

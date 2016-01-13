@@ -63,11 +63,11 @@
 - name: Remove default conf files.
   sudo: yes
   file:
-    name: /etc/nginx/sites-available/default
+    name: "{{ item }}"
     state: absent
-  file:
-    name: /etc/nginx/sites-enabled/default
-    state: absent
+  with_items:
+    - /etc/nginx/sites-enabled/default
+    - /etc/nginx/sites-available/default
 
 - name: Copy default nginx site conf
   sudo: yes
