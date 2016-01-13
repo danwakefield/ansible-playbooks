@@ -1,0 +1,43 @@
+---
+
+- name: Copy TTRSS nginx conf
+  sudo: yes
+  template:
+    src: ttrss.nginx.conf.j2
+    dest: /etc/nginx/sites-available/ttrss.nginx.conf
+    owner: root
+    group: www-data
+    mode: 0774
+  file:
+    src: /etc/nginx/sites-available/ttrss.nginx.conf
+    dest: /etc/nginx/sites-enabled/ttrss.nginx.conf
+    state: link
+
+- name: Update TTRSS config.php
+  sudo: yes
+  template:
+    src: config.php.j2
+    dest: "{{ rss_dir_path }}/config.php"
+
+- name: Update TTRSS permissions
+  sudo: yes
+  file:
+    path: "{{ rss_dir_path }}"
+    recurse: yes
+    owner: www-data
+    group: www-data
+    mode: 0774
+
+- name: Install PHP
+  sudo: yes
+  apt:
+    update_cache: yes
+    state: present
+    name: {{ item }}
+  with_items:
+    - php5
+    - php5-common
+    - php5-pgsql
+    - php5-fpm
+    - php5-curl
+

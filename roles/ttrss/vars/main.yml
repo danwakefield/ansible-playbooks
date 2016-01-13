@@ -1,0 +1,26 @@
+---
+
+include_vars: vault.yml
+
+domain_name: "danw.eu"
+rss_dir_path: "/srv/www/rss/"
+
+git_clone_targets:
+  - repo: "https://tt-rss.org/git/tt-rss.git"
+    dest: {{ rss_dir_path }}
+
+postgresql_ext_install_contrib: yes
+
+postgresql_databases:
+  - name: ttrss
+    owner: ttrss
+
+postgresql_users:
+  - name: ttrss
+    pass: {{ ttrss_pass }}
+    encrypted: no
+
+postgresql_user_priveleges:
+  - name: ttrss
+    db: ttrss
+    priv: "ALL"

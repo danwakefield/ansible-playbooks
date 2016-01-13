@@ -42,7 +42,26 @@
     group: www-data
     mode: 0774
 
+- name: Copy nginx.conf
+  sudo: yes
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy template site.nginx.conf
+  sudo: yes
+  copy:
+    src: template.nginx.conf
+    dest: /etc/nginx/sites-available
+    owner: root
+    group: www-data
+    mode: 0774
+
 - name: Remove default conf files.
+  sudo: yes
   file:
     name: /etc/nginx/sites-available/default
     state: absent
@@ -55,7 +74,7 @@
   template:
     src: default.nginx.j2
     dest: /etc/nginx/sites-available/default.nginx.conf
-    owner: www-data
+    owner: root
     group: www-data
     mode: 0774
 
