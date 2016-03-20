@@ -1,0 +1,7 @@
+---
+
+- name: nginx
+  hosts: all
+  sudo: yes
+  roles:
+  - role: nginx

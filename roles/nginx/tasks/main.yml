@@ -11,6 +11,7 @@
 - name: Install Nginx
   sudo: yes
   apt:
+    update_cache: yes
     name: nginx
     state: present
   notify: restart nginx
